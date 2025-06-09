@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <title>Minha Landing Page</title>
+    <style>
+        /* Reset e estilos globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .créditos {
+            background-color: black;
+            color: white;
+            border: 3px solid white;
+            padding: 10px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #00031F;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Estilo base do botão */
+        .btn {
+            display: inline-block;
+            position: relative;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+        }
+
+        /* Botão Primário */
+        .btn-primary {
+            background: linear-gradient(135deg, #4CAF50, #2E8B57);
+            color: white;
+            border: none;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to bottom right 135deg, #45a049, #2E8B57);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent);
+            transition: 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Botão Secundário */
+        .btn-secondary {
+            background: transparent;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            background-clip: padding-box;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, #4CAF50, #2E8B57);
+            transition: all 0.4s ease;
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .btn-secondary:hover::before {
+            width: 100%;
+        }
+
+        /* Efeitos comuns */
+        .btn:focus {
+            outline: 2px solid rgba(76, 175, 80, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* Efeito de pulso */
+        .btn.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 12px rgba(76, 175, 80, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+
+        /* Estado desativado */
+        .btn:disabled {
+            background: #cccccc;
+            color: #666666;
+            border-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn:disabled:hover::before {
+            display: none;
+        }
+
+        /* Navegação */
+        .grupoCuritiba {
+            background-color: #00FF6F;
+            color: #00031F;
+            font-weight: 600;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .navbar {
+            background-color: #00031F;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00FF6F;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #00FF6F;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 150px 0;
+            min-height: 100vh;
+            background-image: url('Leonardo_Phoenix_10_um_lap_top_em_um_fundo_minimalista_vazio_t_1.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Nova seção de cards */
+        .cards-section {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 150px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+
+        .card-content p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4CAF50, #2E8B57);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card-btn:hover {
+            background: linear-gradient(135deg, #45a049, #2E8B57);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Seção Government */
+        .governo {
+            background: rgb(0, 3, 31);
+            height: 1000px;
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0px 0px 60px 50px;
+            color: white;
+            position: relative;
+        }
+
+        .homem-do-campo h2 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 50px;
+            background: linear-gradient(90deg, #00FF6F, #4CAF50, #2E8B57);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 255, 111, 0.3);
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+
+        .homem-do-campo h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00FF6F, #4CAF50, #2E8B57);
+            border-radius: 3px;
+        }
+
+        .governo-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            width: 50%;
+            transform: translateY(-50px);
+        }
+
+        .governo-image {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 20px;
+            background-image: url('bela-natureza-retro-com-campo.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            border: 5px solid rgb(0, 255, 111);
+            box-shadow: 0 0 0 5px rgba(0, 255, 111, 0.3),
+                        0 0 20px rgba(0, 255, 111, 0.5),
+                        inset 0 0 10px rgba(0, 255, 111, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .governo-image::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed rgba(0, 255, 111, 0.7);
+            border-radius: 25px;
+            pointer-events: none;
+            animation: rotateBorder 20s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Seção descricao */
+        .descricao {
+            background-image: url('guy.jpg');
+            background-position: 0%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .descricao::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .section_container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .proposta1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .proposta2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #ffffff;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .palavra-destaque {
+            color: #4CAF50;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Seção Features */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* Seção CTA */
+        .cta {
+            padding: 100px 0;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Rodapé */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #4CAF50;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #4CAF50;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                margin-top: 20px;
+            }
+
+            .nav-links li {
+                margin: 0 15px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                margin-bottom: 10px;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .governo {
+                flex-direction: column;
+                height: auto;
+                padding: 50px 20px;
+            }
+            
+            .homem-do-campo h2 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+            
+            .governo-image-container {
+                width: 100%;
+                transform: none;
+                height: auto;
+            }
+            
+            .governo-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grupoCuritiba">Grupo Curitiba</div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">Arling</div>
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Recursos</a></li>
+                <li><a href="#">Preços</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Comece estudar tecnologia</h1>
+            <p>Aprenda com profissionais expecializados na área</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Começar Agora</a>
+                <a href="#" class="btn btn-secondary">Saber Mais</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de cards ampliada -->
+    <section class="cards-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Cursos</h2>
+                <p>Escolha entre nossa variedade de cursos de tecnologia ministrados por especialistas do mercado</p>
+            </div>
+            <div class="cards-container">
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?webdevelopment');">
+                    </div>
+                    <div class="card-content">
+                        <h3>Desenvolvimento Web</h3>
+                        <p>Aprenda a criar sites modernos e responsivos com HTML5, CSS3, JavaScript e frameworks como
+                            React e Vue.js.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?mobile,app');"></div>
+                    <div class="card-content">
+                        <h3>Desenvolvimento Mobile</h3>
+                        <p>Crie aplicativos para Android e iOS utilizando frameworks modernos como React Native, Flutter
+                            e Kotlin.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?datascience');"></div>
+                    <div class="card-content">
+                        <h3>Ciência de Dados</h3>
+                        <p>Domine análise de dados, machine learning e inteligência artificial com Python, R e
+                            TensorFlow.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?design,ux');"></div>
+                    <div class="card-content">
+                        <h3>UX/UI Design</h3>
+                        <p>Aprenda a criar interfaces intuitivas e experiências de usuário memoráveis com Figma e Adobe
+                            XD.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?cybersecurity');">
+                    </div>
+                    <div class="card-content">
+                        <h3>Segurança da Informação</h3>
+                        <p>Proteja sistemas e dados contra ameaças cibernéticas com técnicas de ethical hacking e
+                            pentesting.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?cloud,computing');">
+                    </div>
+                    <div class="card-content">
+                        <h3>Cloud Computing</h3>
+                        <p>Domine AWS, Azure e Google Cloud para criar soluções escaláveis e de alta disponibilidade.
+                        </p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?devops');"></div>
+                    <div class="card-content">
+                        <h3>DevOps</h3>
+                        <p>Automatize processos de desenvolvimento e deployment com Docker, Kubernetes e CI/CD
+                            pipelines.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?blockchain');"></div>
+                    <div class="card-content">
+                        <h3>Blockchain</h3>
+                        <p>Explore o mundo das criptomoedas, smart contracts e desenvolvimento DApp com Solidity.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-img"
+                        style="background-image: url('https://source.unsplash.com/random/600x400/?ai,artificialintelligence');">
+                    </div>
+                    <div class="card-content">
+                        <h3>Inteligência Artificial</h3>
+                        <p>Aprenda os fundamentos de IA, redes neurais e deep learning para criar sistemas inteligentes.</p>
+                        <a href="#" class="card-btn">Saiba Mais</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="governo">
+        <div class="homem-do-campo">
+            <h2>Do agro para o homem do campo</h2>
+        </div>
+
+        <figure class="governo-image-container">
+            <div class="governo-image"></div>
+            <figcaption class="créditos">
+                <a href="https://br.freepik.com/fotos-gratis/bela-natureza-retro-com-campo_31589942.htm#fromView=search&page=1&position=3&uuid=c28846f9-ad4b-4fc2-a468-82b80751e065&query=campo">
+                    Imagem de freepik
+                </a>
+            </figcaption>
+        </figure>
+
+        <div class="programa-info">
+            <h3></h3>
+            <p></p>
+        </div>
+    </section>
+
+    <section class="descricao">
+        <div class="section_container">
+            <div class="proposta1">
+                <p>A tecnologia é <span id="vasta" class="palavra-destaque">vasta</span></p>
+            </div>
+            <div class="proposta2">
+                <p>Todo conhecimento que você precisa está aqui, venha explorar nossos universos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Recursos</h2>
+                <p>Conheça as funcionalidades que tornam nosso produto único no mercado</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Análises Avançadas</h3>
+                    <p>Relatórios detalhados e dashboards interativos para acompanhar seu desempenho.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Automação Inteligente</h3>
+                    <p>Reduza tarefas repetitivas com nossa tecnologia de automação.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Segurança de Dados</h3>
+                    <p>Seus dados protegidos com criptografia de última geração.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Pronto para transformar seu negócio?</h2>
+            <p>Junte-se a milhares de empresas que já estão usando nossa plataforma.</p>
+            <a href="#" class="btn btn-secondary">Experimente Grátis</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Sobre Nós</h3>
+                    <p>Uma empresa inovadora dedicada a criar soluções que fazem a diferença.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Preços</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li>grupoCuritiba@gmail.com</li>
+                        <li>(44) 99920-2315</li>
+                        <li>Curitiba, PR</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Redes Sociais</h3>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">TW</a>
+                        <a href="#">IG</a>
+                        <a href="#">LI</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Grupo Curitiba - Levando a tecnologia para todo lugar</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
